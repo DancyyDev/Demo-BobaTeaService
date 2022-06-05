@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Bo-Bo Tea</h1>
+        <ul class="nav">
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/userMenu">Menu</a></li>
+            <li><a href="/userProfile">Rewards</a></li>
+            <li><a href="/logout">Log-In</a></li>
+        </ul>  
+    </header>
+
+    <section id="leftColumn">
+        <h2>My Drink in visual</h2>
+        <section>
+            <!-- will have an interchangable img -->
+        </section>
+    </section>
+    
+    <section id="rightColumn">
+        <h3> Your Drink Combo</h3>
+        <form action="/addToOrder" method="post">
+            <div>
+                <label for="">Name</label> 
+                <input type="text" name="name">     
+            </div>
+        <section>
+            <h5>Choice of Drink</h5>
+            <div>
+                <input type="radio" name="drink" value="Classic Milk Tea">
+                <label for="">Classic Milk Tea</label> 
+            </div>
+            <div>
+                <input type="radio" name="drink" value="Oolong Tea">
+                <label for="">Oolong Tea</label> 
+            </div>
+            <div>
+                <input type="radio" name="drink" value="Matcha">
+                <label for="">Matcha</label> 
+            </div>
+            <div>
+                <input type="radio" name="drink" value="Horchata">
+                <label for="">Horchata</label> 
+            </div>
+            <div>
+                <input type="radio" name="drink" value="Pina Colada">
+                <label for="">Pina Colada</label> 
+            </div>
+            <div>
+                <input type="radio" name="drink" value="Lemonade Tea">
+                <label for="">Lemonade Tea</label> 
+            </div>
+            <div>
+                <input type="radio" name="drink" value="Thai Tea">
+                <label for="Thai Tea">Thai Tea</label> 
+            </div>
+            <div>
+                <input type="radio" name="drink" value="Apple Tea">
+                <label for="Apple Tea">Apple Tea</label> 
+            </div>
+        </section>
+
+        <section>
+            
+            <h5>Toppings</h5>
+            <div>
+                <input type="checkbox" name="toppings" value="Pearls">
+                <label for="pearls">Pearls</label>
+            </div>
+            <div>
+                <input type="checkbox" name="toppings" value="Red Bean">
+                <label for="redBean">Red Bean</label>
+            </div>   
+            <div>
+                <input type="checkbox" name="toppings" value="Yogurt Popping">
+                <label for="yogoPop">Yogurt Popping</label>
+            </div>     
+            
+            <div>
+                <input type="checkbox" name="toppings" value="Rainbow Popping">
+                <label for="rbowPop">Rainbow Popping</label>
+            </div>
+            
+            <div>  
+                <input type="checkbox" name="toppings" value="Peach Popping">
+            <label for="peachPop">Peach Popping</label>
+            </div>
+            
+            <div>
+                <input type="checkbox" name="toppings" value="Mango Popping">
+                <label for="popMango">Mango Popping</label>
+            </div>
+            
+            <div>
+                <input type="checkbox" name="toppings" value="Strawberry Popping">
+                <label for="popSwberry">Strawberry Popping</label>
+            </div>
+            
+            <div>
+                <input type="checkbox" name="toppings" value="Lychee Jelly">
+                <label for="jellyLychee">Lychee Jelly</label>
+            </div>
+            
+            <div>
+                <input type="checkbox" name="toppings" value="Aloe Jelly">
+                <label for="jellyALoe">Aloe Jelly</label>
+            </div>
+            
+            <div>
+                <input type="checkbox" name="toppings" value="Grass Jelly">
+                <label for="jellyGrass">Grass Jelly</label>
+            </div>
+            
+            <div>
+                <input type="checkbox" name="toppings" value="Mango Jelly">
+                <label for="jellyMango">Mango Jelly</label> 
+            </div>
+            <div>
+                <input type="checkbox" name="toppings" value="Pineapple Jelly">
+                <label for="jellyPine">Pineapple Jelly</label> 
+            </div>
+            <div>
+                <input type="checkbox" name="toppings" value="Passion Fruit Jelly">
+                <label for="jellyPassion">Passion Fruit Jelly</label> 
+            </div>
+            <div>
+                <input type="checkbox" name="toppings" value="Coffee Jelly">
+                <label for="jellyCoffee">Coffee Jelly</label> 
+            </div>
+        </section>
+
+        <section>
+            <h5>Sugar</h5>
+            <div>
+                <input type="radio" name="sugar" value="Extra">
+                <label for="sugar">Extra</label> 
+            </div>
+            <div>
+                <input type="radio" name="sugar" value="Regular" checked>
+                <label for="sugar">Regular</label> 
+            </div>
+            <div>
+                <input type="radio" name="sugar" value="Half">
+                <label for="sugar">Half</label> 
+            </div>
+            <div>
+                <input type="radio" name="sugar" value="None">
+                <label for="sugar">None</label> 
+            </div>
+        </section>
+
+        <section>
+            <h5>Ice</h5>
+            <div>
+                <input type="radio" name="ice" value="Regular" checked>
+                <label for="jellyPine">Regular</label> 
+            </div>
+            <div>
+                <input type="radio" name="ice" value="Some">
+                <label for="jellyPassion">Some</label> 
+            </div>
+            <div>
+                <input type="radio" name="ice" value="None">
+                <label for="jellyCoffee">None</label> 
+            </div>
+        </section>
+
+        <!-- <section class="alchol">
+            <h5>Booze/Mix</h5>
+            <div>
+                <input type="radio" name="booze" value="Soju Yakult Cocktail">
+                <label for="">Soju Yakult Cocktail</label>
+                <p>Korean yakult soju cocktail with a slash of Lemon/lime soda.</p>
+            </div>
+            <div>
+                <input type="radio" name="booze" value="Kahlua Vietnamese Iced Coffee">
+                <label for="">Kahlua Vietnamese Iced Coffee</label>
+                <p>Kahlua Vietnamese Ice Coffee with milk cap.</p>
+            </div>
+            <div>
+                <input type="radio" name="booze" value="Captain Taro">
+                <label for="">Captain Taro</label>
+                <p>Taro Milk Tea with Captain Morgan Spiced Rum</p>
+            </div>
+            <h5>More To COme!</h5>
+        </section> -->
+       
+        <button type="submit" id="addOrder">Add to Order</button>
+        
+    </form>
+    </section>
+    <%for(let i=0; i < newOrders.length; i++) { %>
+    <section id="<%= newOrders[i]._id%>"">
+        <span>Drink:</span>
+        <p><%= newOrders[i].drink %></p>
+        <span>Toppings:</span>
+        <p><%= newOrders[i].toppings %></p>
+        <span>Sugar:</span>
+        <p><%= newOrders[i].sugar %></p>
+        <span>Ice:</span>
+        <p><%= newOrders[i].ice %></p>
+    </section>
+    <% } %>
+
+    <script src="main.js"></script>
+</body>
+</html>
