@@ -30,11 +30,13 @@ header {
   width: 80%;
   margin: 0 10%;
   height: 40rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
 }
 
 .mainTag {
-  width: 70%;
-  float: left;
+  width: 40%;
 }
 
 h2 {
@@ -50,9 +52,9 @@ h2 {
 }
 
 .frontLogin {
-  float: left;
   width: 30%;
-  padding: 2.5rem 1% 0 3%;
+  height: 20rem;
+  padding: 1.5rem 1% 0 3%;
   border-radius: 3rem;
   border: 3px solid #18638f;
 }
@@ -73,7 +75,7 @@ h2 {
 
 #leftColumn,
 #rightColumn {
-  width: 40%;
+  width: 23%;
   height: 55rem;
   float: left;
 }
@@ -85,6 +87,7 @@ h2 {
 
 #rightColumn {
   margin-right: 10%;
+  padding: 0 0 0 1.5rem;
   background: lightgray;
 }
 
@@ -112,7 +115,7 @@ div {
 #addOrder {
   clear: both;
   width: 50%;
-  margin: 0 25%;
+  margin: 10% 20%;
 }
 
 /* ////////////////////// */
@@ -248,13 +251,6 @@ a {
   appearance: none;
   border-radius: 8px;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  :focus {
-    color: #212529;
-    background-color: #fff;
-    border-color: #86b7fe;
-    outline: 0;
-    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
-  }
 }
 
 button {
@@ -299,6 +295,7 @@ button {
     width: 25%;
     margin: 5rem 5rem 0 0;
     float: left;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 #profileInfo {
@@ -306,6 +303,7 @@ button {
     width: 30%;
     margin: 5rem 5rem 0 0;
     float: left;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 #profileRewards {
@@ -313,6 +311,7 @@ button {
     height: 20rem;
     margin: 5rem 0 0 0;
     float: left;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 #profileFavBev {
@@ -320,4 +319,11 @@ button {
     height: 10rem;
     margin-top: 5rem;
     float: left;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.checkBox {
+  width: 3rem;
+  height: 3rem;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
