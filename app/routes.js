@@ -1,5 +1,5 @@
 module.exports = function(app, passport, db) {
-  // const {ObjectId} = require('mongodb')
+  const {ObjectId} = require('mongodb')
 
 // normal routes ===============================================================
 
@@ -31,15 +31,15 @@ module.exports = function(app, passport, db) {
         res.redirect('/');
     });
 
-// create and deleting orders  ===============================================================
+// create, updating and deleting orders  ===============================================================
     app.post('/addToOrder', isLoggedIn, (req, res) => {
       db.collection('newOrders').insertOne(
       {
-        name: req.body.name,
         drink: req.body.drink,
         toppings: req.body.toppings,
         sugar: req.body.sugar,
-        ice: req.body.ice
+        ice: req.body.ice,
+        status: 'Pending'
       }, (err, result) => {
         if (err) return console.log(err)
         console.log('saved to database')
@@ -47,11 +47,10 @@ module.exports = function(app, passport, db) {
       })
     })
 
-    app.delete('/addToOrder', (req, res) => {
+    app.delete('/deleteOrderItem', (req, res) => {
       db.collection('newOrders').findOneAndDelete(
         {
-          name: req.body.name, 
-          newOrders: req.body.order
+          _id: ObjectId(req.body._id)
         }, (err, result) => {
         if (err) return res.send(500, err)
         res.send('Message deleted!')
