@@ -15,29 +15,30 @@
     <header>
         <h1>Bo-Bo Tea</h1>
         <ul class="nav">
-            <li><a href="/profile">Profile</a></li>
             <li><a href="/userMenu">Menu</a></li>
-            <li><a href="/userProfile">Rewards</a></li>
             <li><a href="/logout">Log-In</a></li>
         </ul>  
     </header>
 
     <main class="mainProfile">
         <section id="profileImage"></section>
-        <section id="profileInfo"></section>
-        <section id="profileRewards">
-            <div class="checkBox"></div>
-            <div class="checkBox"></div>
-            <div class="checkBox"></div>
-            <div class="checkBox"></div>
-            <div class="checkBox"></div>
-            <div class="checkBox"></div>
-            <div class="checkBox"></div>
-            <div class="checkBox"></div>
-            <div class="checkBox"></div>
-            <div class="checkBox"></div>
+        <section id="profileInfo">
+            <h3>User: <%= user.local.userName%></h3>
+            <span>Name: <%= user.local.firstName%> <%= user.local.lastName%></span><br>
+            <span>Email: <%= user.local.email%></span>   
         </section>
-        <section id="profileFavBev"></section>
+        <section id="profileRewards">
+            <div class="checkBox stamp1"></div>
+            <div class="checkBox stamp2"></div>
+            <div class="checkBox stamp3"></div>
+            <div class="checkBox stamp4"></div>
+            <div class="checkBox stamp5"></div>
+            <div class="checkBox stamp6"></div>
+            <div class="checkBox stamp7"></div>
+            <div class="checkBox stamp8"></div>
+            <div class="checkBox stamp9"></div>
+            <div class="checkBox stamp10"></div>
+        </section>
     </main>
 
     

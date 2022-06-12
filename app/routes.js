@@ -14,14 +14,64 @@ module.exports = function(app, passport, db) {
 });
 
     // Menu SECTION =========================
-    // app.get('/menu', function(req, res) {
-    //     res.render('menu.ejs')
-    // });
     
-    app.get('/userMenu', function(req, res) {
+    app.get('/userMenu', isLoggedIn, function(req, res) {
       db.collection('newOrders').find().toArray((err, result) => {
         if (err) return console.log(err)
-        res.render('userMenu.ejs', { newOrders: result})
+        res.render('userMenu.ejs', { user: result, newOrders: result})
+      })  
+    });
+    
+    app.get('/purchasePage', isLoggedIn, function(req, res) {
+      let user = req.user._id
+      console.log(user)
+      db.collection('newOrders').find().toArray((err, result) => {
+        if (err) return console.log(err)
+        res.render('purchase.ejs', 
+        {  
+          users: user,
+          newOrders: result
+        })
+      })
+    })
+    
+    // app.get('/purchaseCCard', isLoggedIn, function(req, res) {
+    //   db.collection('user/:id').find().toArray((err, result) => {
+    //     if (err) return console.log(err)
+    //     res.render({user: result})
+
+    //     db.collection('newOrders').find().toArray((err, result) => {
+    //       if (err) return console.log(err)
+    //       res.render( 
+    //       {  
+    //         newOrders: result
+    //       })
+    //       db.collection('address').find().toArray((err, result) => {
+    //         if (err) return console.log(err)
+    //         res.render('purchase.ejs', 
+    //         {  
+    //           address: result
+    //         })
+    //       })
+    //     })
+    //   })  
+    // });
+
+    app.get('/purchaseCCard', isLoggedIn, function(req, res) {
+      db.collection('newOrders').find().toArray((err, result) => {
+        if (err) return console.log(err)
+        res.render('purchaseComplete.ejs', { newOrders: result})
+      })  
+      db.collection('address').find().toArray((err, result) => {
+        if (err) return console.log(err)
+        res.render({ address: result})
+      })  
+    });
+
+    app.get('/purchaseComplete', isLoggedIn, function(req, res) {
+      db.collection('newOrders').find().toArray((err, result) => {
+        if (err) return console.log(err)
+        res.render('purchaseComplete.ejs', { newOrders: result})
       })  
     });
 
@@ -33,8 +83,11 @@ module.exports = function(app, passport, db) {
 
 // create, updating and deleting orders  ===============================================================
     app.post('/addToOrder', isLoggedIn, (req, res) => {
+      let user = req.user._id
+      console.log(user)
       db.collection('newOrders').insertOne(
       {
+        userId: user,
         drink: req.body.drink,
         toppings: req.body.toppings,
         sugar: req.body.sugar,
@@ -47,6 +100,45 @@ module.exports = function(app, passport, db) {
       })
     })
 
+    // Updates the order when u finish buying drink and sends the order to the shop as status in progress
+    app.post('/addToOrder', isLoggedIn, (req, res) => {
+      db.collection('newOrders').updateMany(
+      {
+        userId: req.user._id, 
+      },
+       {$set: {
+          status: 'In Progress'// status: 'Pending', 'In Progress', 'Complete'
+        }
+      }, {
+        sort: {_id: -1},
+        upsert: true
+      }, (err, result) => {
+        if (err) return console.log(err)
+        console.log('saved to database')
+        res.redirect('/userMenu')
+      })
+    })
+
+    // updates when the order is complete and sends message back to customer that order is complete
+    app.post('/addToOrder', isLoggedIn, (req, res) => {
+      db.collection('newOrders').updateMany(
+        {
+          userId: req.local.user, 
+        },
+         {$set: {
+            status: 'In Progress'// status: 'Pending', 'In Progress', 'Complete'
+          }
+        }, {
+          sort: {_id: -1},
+          upsert: true
+        }, (err, result) => {
+        if (err) return console.log(err)
+        console.log('saved to database')
+        res.redirect('/userMenu')
+      })
+    })
+
+    //deletes order on the menu page
     app.delete('/deleteOrderItem', (req, res) => {
       db.collection('newOrders').findOneAndDelete(
         {
@@ -56,16 +148,46 @@ module.exports = function(app, passport, db) {
         res.send('Message deleted!')
       })
     })
+
+// /////////////////////////////
+// Purchasing route/////////////
+// /////////////////////////////
+
+app.post('/address', (req, res) => {
+  let user = req.user._id
+  db.collection('address').insertOne(
+    {
+      userId: user,
+      address1: req.body.address1,
+      address2: req.body.address2,
+      city: req.body.city,
+      state: req.body.state,
+      zip: req.body.zip
+    }, (err,result) => {
+      if(err) console.log(err)
+      res.render('purchase.ejs')
+    })
+})
+
+app.get('/purchase', isLoggedIn, (req, res) => {
+  db.collection('address').find().toArray((err,result) => {
+  if(err) console.log(err)
+  res.render('purchase.ejs', 
+  {address : result})
+})
+})
+
+
 // /////////////////////////////
 //   Logged in with account   //
 // /////////////////////////////
 
 app.get('/userProfile', isLoggedIn, function(req, res) {
-  db.collection('rewardsPass').find().toArray((err, complete) => {
+  db.collection('rewardsPass').find().toArray((err, result) => {
     if (err) return console.log(err)
     res.render('profile.ejs', {
       user: req.user,
-      rewardPass: complete
+      rewardPass: result
     });
   })
 });

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boba Time!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Bo-Bo Tea</h1>
+    </header>
+
+    <main class="adress">
+        <section>
+            <h2>Your Order is on the way!</h2>
+        </section>
+
+
+        <% if ( user.local.email) { %>
+            <%for(let i=0; i < newOrders.length; i++) { %>
+                <section id="<%= newOrders[i]._id%>"">
+                    <span>Drink:</span>
+                    <p><%= newOrders[i].drink %></p>
+                    <span>Toppings:</span>
+                    <p><%= newOrders[i].toppings %></p>
+                    <span>Sugar:</span>
+                    <p><%= newOrders[i].sugar %></p>
+                    <span>Ice:</span>
+                    <p><%= newOrders[i].ice %></p>
+                    <span><i class="fa-solid fa-square-xmark"></i></span>
+                </section>
+            <% } %>
+            <% } %>
+
+    </main>
+    
+    <script src="main.js"></script>
+</body>
+</html>

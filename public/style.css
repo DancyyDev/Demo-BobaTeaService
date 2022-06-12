@@ -391,7 +391,7 @@ button:focus-visible{
 
 #profileRewards {
     width: 25%;
-    height: 20rem;
+    height: 50rem;
     margin: 5rem 0 0 0;
     float: left;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
@@ -406,7 +406,38 @@ button:focus-visible{
 }
 
 .checkBox {
-  width: 3rem;
-  height: 3rem;
+  width: 50%;
+  height: 10rem;
+  transition: .5s;
+  box-shadow: 0 0px 0px rgba(0,0,0,0.25), 0 0px 0px rgba(0,0,0,0.22);
+}
+.checkBox:hover {
+  transition: .5s;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+/* //////////////// */
+/* //Purchase pages */
+/* //////////////// */
+
+.address {
+  width: 80%;
+  margin: 0 10%;
+  display: flex;
+  flex-direction:row;
+  justify-content: left;
+}
+
+.addressInput {
+  width: 40%;
+}
+.addressInput input{
+  width: 80%;
+}
+
+.address .orderCart {
+  width: 40%;
+}
+.address .orderCart {
+  width: 40%;
 }
