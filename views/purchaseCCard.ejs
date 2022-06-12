@@ -18,33 +18,33 @@
  <!-- if user is guest, form shows
     if user logged in, use saved address -->
     <main class="address">
-        <% for( let i = 0; i < address.length; i++) { %>
+        <% for( let i = 0; i < bobaDBaddress.length; i++) { %>
         <section class="addressInput">
-            <span><%= address[i].address1 %>, <%= address[i].address %></span>
-            <span><%= address[i].city %>, <%= address[i].state %>, <%= address[i].zip %></span>
+            <span><%= bobaDBaddress[i].address1 %>, <%= bobaDBaddress[i].address %></span>
+            <span><%= bobaDBaddress[i].city %>, <%= bobaDB[i].state %>, <%= bobaDBaddress[i].zip %></span>
         </section>
         <% } %>
 
         <section class="orderCart">
             <h2>Your Order</h2>
-            <%for(let i=0; i < newOrders.length; i++) { console.log(newOrders)%>
-            <section id="<%= newOrders[i]._id%>"">
+            <%for(let i=0; i < bobaDB.length; i++) { console.log(bobaDB)%>
+            <section id="<%= bobaDB[i]._id%>"">
                 <span>Drink:</span>
-                <p><%= newOrders[i].drink %></p>
+                <p><%= bobaDB[i].drink %></p>
 
                 <span>Toppings:</span>
-                <p><%= newOrders[i].toppings %></p>
+                <p><%= bobaDB[i].toppings %></p>
 
                 <span>Sugar:</span>
-                <p><%= newOrders[i].sugar %></p>
+                <p><%= bobaDB[i].sugar %></p>
 
                 <span>Ice:</span>
-                <p><%= newOrders[i].ice %></p>
+                <p><%= bobaDB[i].ice %></p>
                 <span><i class="fa-solid fa-square-xmark"></i></span>
             </section>
             <% } %>
         </section>
-        
+
     </main>
 
     

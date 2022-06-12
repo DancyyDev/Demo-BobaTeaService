@@ -23,16 +23,16 @@
 
 
         <% if ( user.local.email) { %>
-            <%for(let i=0; i < newOrders.length; i++) { %>
-                <section id="<%= newOrders[i]._id%>"">
+            <%for(let i=0; i < bobaDB.length; i++) { %>
+                <section id="<%= bobaDB[i]._id%>"">
                     <span>Drink:</span>
-                    <p><%= newOrders[i].drink %></p>
+                    <p><%= bobaDB[i].drink %></p>
                     <span>Toppings:</span>
-                    <p><%= newOrders[i].toppings %></p>
+                    <p><%= bobaDB[i].toppings %></p>
                     <span>Sugar:</span>
-                    <p><%= newOrders[i].sugar %></p>
+                    <p><%= bobaDB[i].sugar %></p>
                     <span>Ice:</span>
-                    <p><%= newOrders[i].ice %></p>
+                    <p><%= bobaDB[i].ice %></p>
                     <span><i class="fa-solid fa-square-xmark"></i></span>
                 </section>
             <% } %>

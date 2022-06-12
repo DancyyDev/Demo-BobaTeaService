@@ -16,62 +16,59 @@ module.exports = function(app, passport, db) {
     // Menu SECTION =========================
     
     app.get('/userMenu', isLoggedIn, function(req, res) {
-      db.collection('newOrders').find().toArray((err, result) => {
+      db.collection('bobaDB').find().toArray((err, result) => {
         if (err) return console.log(err)
-        res.render('userMenu.ejs', { user: result, newOrders: result})
+        res.render('userMenu.ejs', { user: result, bobaDB: result})
       })  
     });
     
     app.get('/purchasePage', isLoggedIn, function(req, res) {
       let user = req.user._id
       console.log(user)
-      db.collection('newOrders').find().toArray((err, result) => {
+      db.collection('bobaDB').find().toArray((err, result) => {
         if (err) return console.log(err)
         res.render('purchase.ejs', 
         {  
-          users: user,
-          newOrders: result
+          user: user,
+          bobaDB: result
         })
+      })
+    })
+
+    app.get('/purchaseCCard', isLoggedIn, function(req, res) {
+      let user = req.user
+      console.log(user)
+      db.collection('bobaDB').find().toArray((err, drinks) => {
+        if (err) {
+          return console.log(err)
+        } else {
+          db.collection('bobaDBaddress').find().toArray((err, delivery) => {
+            if (err) {
+              return console.log(err)
+            } else { 
+              res.render('purchaseCCard.ejs', { bobaDB: drinks, bobaDBaddress: delivery})
+            }
+               
+            }) 
+        }
       })
     })
     
     // app.get('/purchaseCCard', isLoggedIn, function(req, res) {
-    //   db.collection('user/:id').find().toArray((err, result) => {
+    //   db.collection('bobaDB').find().toArray((err, result) => {
     //     if (err) return console.log(err)
-    //     res.render({user: result})
-
-    //     db.collection('newOrders').find().toArray((err, result) => {
-    //       if (err) return console.log(err)
-    //       res.render( 
-    //       {  
-    //         newOrders: result
-    //       })
-    //       db.collection('address').find().toArray((err, result) => {
-    //         if (err) return console.log(err)
-    //         res.render('purchase.ejs', 
-    //         {  
-    //           address: result
-    //         })
-    //       })
-    //     })
+    //     res.render('purchaseComplete.ejs', { bobaDB: result})
+    //   })  
+    //   db.collection('bobaDB').find().toArray((err, result) => {
+    //     if (err) return console.log(err)
+    //     res.render({ bobaDB: result})
     //   })  
     // });
 
-    app.get('/purchaseCCard', isLoggedIn, function(req, res) {
-      db.collection('newOrders').find().toArray((err, result) => {
-        if (err) return console.log(err)
-        res.render('purchaseComplete.ejs', { newOrders: result})
-      })  
-      db.collection('address').find().toArray((err, result) => {
-        if (err) return console.log(err)
-        res.render({ address: result})
-      })  
-    });
-
     app.get('/purchaseComplete', isLoggedIn, function(req, res) {
-      db.collection('newOrders').find().toArray((err, result) => {
+      db.collection('bobaDB').find().toArray((err, result) => {
         if (err) return console.log(err)
-        res.render('purchaseComplete.ejs', { newOrders: result})
+        res.render('purchaseComplete.ejs', { bobaDB: result})
       })  
     });
 
@@ -85,7 +82,7 @@ module.exports = function(app, passport, db) {
     app.post('/addToOrder', isLoggedIn, (req, res) => {
       let user = req.user._id
       console.log(user)
-      db.collection('newOrders').insertOne(
+      db.collection('bobaDB').insertOne(
       {
         userId: user,
         drink: req.body.drink,
@@ -101,8 +98,8 @@ module.exports = function(app, passport, db) {
     })
 
     // Updates the order when u finish buying drink and sends the order to the shop as status in progress
-    app.post('/addToOrder', isLoggedIn, (req, res) => {
-      db.collection('newOrders').updateMany(
+    app.post('/addToOrderProgress', isLoggedIn, (req, res) => {
+      db.collection('bobaDB').updateMany(
       {
         userId: req.user._id, 
       },
@@ -120,13 +117,13 @@ module.exports = function(app, passport, db) {
     })
 
     // updates when the order is complete and sends message back to customer that order is complete
-    app.post('/addToOrder', isLoggedIn, (req, res) => {
-      db.collection('newOrders').updateMany(
+    app.post('/addToOrderComplete', isLoggedIn, (req, res) => {
+      db.collection('bobaDB').updateMany(
         {
           userId: req.local.user, 
         },
          {$set: {
-            status: 'In Progress'// status: 'Pending', 'In Progress', 'Complete'
+            status: 'Complete'// status: 'Pending', 'In Progress', 'Complete'
           }
         }, {
           sort: {_id: -1},
@@ -140,7 +137,7 @@ module.exports = function(app, passport, db) {
 
     //deletes order on the menu page
     app.delete('/deleteOrderItem', (req, res) => {
-      db.collection('newOrders').findOneAndDelete(
+      db.collection('bobaDB').findOneAndDelete(
         {
           _id: ObjectId(req.body._id)
         }, (err, result) => {
@@ -155,7 +152,7 @@ module.exports = function(app, passport, db) {
 
 app.post('/address', (req, res) => {
   let user = req.user._id
-  db.collection('address').insertOne(
+  db.collection('bobaDBaddress').insertOne(
     {
       userId: user,
       address1: req.body.address1,
@@ -165,16 +162,8 @@ app.post('/address', (req, res) => {
       zip: req.body.zip
     }, (err,result) => {
       if(err) console.log(err)
-      res.render('purchase.ejs')
+      res.render('purchaseCCard.ejs')
     })
-})
-
-app.get('/purchase', isLoggedIn, (req, res) => {
-  db.collection('address').find().toArray((err,result) => {
-  if(err) console.log(err)
-  res.render('purchase.ejs', 
-  {address : result})
-})
 })
 
 
