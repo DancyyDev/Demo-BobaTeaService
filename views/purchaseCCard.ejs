@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="checkout.css" />
+    <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
 
@@ -21,13 +23,29 @@
         <% for( let i = 0; i < bobaDBaddress.length; i++) { %>
         <section class="addressInput">
             <span><%= bobaDBaddress[i].address1 %>, <%= bobaDBaddress[i].address %></span>
-            <span><%= bobaDBaddress[i].city %>, <%= bobaDB[i].state %>, <%= bobaDBaddress[i].zip %></span>
+            <span><%= bobaDBaddress[i].city %>, <%= bobaDBaddress[i].state %>, <%= bobaDBaddress[i].zip %></span>
         </section>
         <% } %>
 
+        <section class="ccForm">
+            
+            <form id="payment-form" action="/create-payment-intent" method="post">
+                <div id="payment-element">
+                    <h2>$<%= sumTotal.priceTotal %></h2>
+                  <!--Stripe.js injects the Payment Element-->
+                  <input type="hidden" name="orderPrice" value="<%= sumTotal.priceTotal %>">
+                </div>
+                <button id="submit" type="submit">
+                  <div class="spinner hidden" id="spinner"></div>
+                  <span id="button-text">Pay now</span>
+                </button>
+                <div id="payment-message" class="hidden"></div>
+              </form>
+        </section>
+
         <section class="orderCart">
             <h2>Your Order</h2>
-            <%for(let i=0; i < bobaDB.length; i++) { console.log(bobaDB)%>
+            <%for(let i=0; i < bobaDB.length; i++) { %>
             <section id="<%= bobaDB[i]._id%>"">
                 <span>Drink:</span>
                 <p><%= bobaDB[i].drink %></p>
@@ -43,13 +61,15 @@
                 <span><i class="fa-solid fa-square-xmark"></i></span>
             </section>
             <% } %>
+            <h3>Total: <%= sumTotal.priceTotal + .00 %></h3>
         </section>
-
+        
     </main>
 
     
 
 
     <script src="main.js"></script>
+    <script src="checkout.js" defer></script>
 </body>
 </html>

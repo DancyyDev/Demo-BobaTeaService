@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <!-- <script src="https://js.stripe.com/v3/"></script> -->
 </head>
 <body>
 
     <header>
         <h1>Bo-Bo Tea</h1>
         <ul class="nav">
-            <li><a href="/userProfile">Rewards</a></li>
+            <li><a href="/userProfile">Profile</a></li>
             <li><a href="/logout">Log-Out</a></li>
         </ul>  
     </header>
@@ -28,10 +29,23 @@
         <h3> Your Drink Combo</h3>
         <form action="/addToOrder" method="post">
         <section>
+            <h5>Choice of Size</h5>
+            <div>
+               
+                <input type="radio" name="size" value="Medium 5.00">
+                <label for="">Medium(20oz.)</label> 
+            </div>
+            <div>
+                <input type="radio" name="size" value="Large 5.50">
+                <label for="">Large(24oz.)</label> 
+            </div>
+        </section>
+
+        <section>
             <h5>Choice of Drink</h5>
             <div>
                
-                <input type="radio" name="drink" value="Classic Milk Tea">
+                <input type="radio" name="drink" value= "Classic Milk Tea" >
                 <label for="">Classic Milk Tea</label> 
             </div>
             <div>
@@ -198,6 +212,8 @@
         <%for(let i=0; i < bobaDB.length; i++) { %>
            
         <section id="<%= bobaDB[i]._id%>"">
+            <span>Size:</span>
+            <p><%= bobaDB[i].size %></p>
             <span>Drink:</span>
             <p><%= bobaDB[i].drink %></p>
             <span>Toppings:</span>
@@ -206,6 +222,8 @@
             <p><%= bobaDB[i].sugar %></p>
             <span>Ice:</span>
             <p><%= bobaDB[i].ice %></p>
+            <span>Price:</span>
+            <p><%= bobaDB[i].price %></p>
             <span><i class="fa-solid fa-square-xmark"></i></span>
         </section>
         

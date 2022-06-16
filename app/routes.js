@@ -1,5 +1,7 @@
-module.exports = function(app, passport, db) {
+module.exports = function(app, passport, db, stripe) {
   const {ObjectId} = require('mongodb')
+  
+  require('dotenv').config()
 
 // normal routes ===============================================================
 
@@ -39,6 +41,12 @@ module.exports = function(app, passport, db) {
       let user = req.user
       console.log(user)
       db.collection('bobaDB').find().toArray((err, drinks) => {
+        let total = 0
+        for(let i=0; i < drinks.length; i++){
+          console.log(drinks[i].price)
+          total += parseFloat(drinks[i].price)
+        }
+        let sumTotal = {priceTotal: total}
         if (err) {
           return console.log(err)
         } else {
@@ -46,24 +54,13 @@ module.exports = function(app, passport, db) {
             if (err) {
               return console.log(err)
             } else { 
-              res.render('purchaseCCard.ejs', { bobaDB: drinks, bobaDBaddress: delivery})
+              res.render('purchaseCCard.ejs', { bobaDB: drinks, bobaDBaddress: delivery, sumTotal})
             }
                
             }) 
         }
       })
     })
-    
-    // app.get('/purchaseCCard', isLoggedIn, function(req, res) {
-    //   db.collection('bobaDB').find().toArray((err, result) => {
-    //     if (err) return console.log(err)
-    //     res.render('purchaseComplete.ejs', { bobaDB: result})
-    //   })  
-    //   db.collection('bobaDB').find().toArray((err, result) => {
-    //     if (err) return console.log(err)
-    //     res.render({ bobaDB: result})
-    //   })  
-    // });
 
     app.get('/purchaseComplete', isLoggedIn, function(req, res) {
       db.collection('bobaDB').find().toArray((err, result) => {
@@ -85,10 +82,12 @@ module.exports = function(app, passport, db) {
       db.collection('bobaDB').insertOne(
       {
         userId: user,
+        size: req.body.size.split(' ')[0],
         drink: req.body.drink,
         toppings: req.body.toppings,
         sugar: req.body.sugar,
         ice: req.body.ice,
+        price: req.body.size.split(' ')[1],
         status: 'Pending'
       }, (err, result) => {
         if (err) return console.log(err)
@@ -167,6 +166,33 @@ app.post('/address', (req, res) => {
 })
 
 
+
+
+app.post("/create-payment-intent", async (req, res) => {
+//   const calculateOrderAmount = (items) => {
+//   // Replace this constant with a calculation of the order's amount
+//   // Calculate the order total on the server to prevent
+//   // people from directly manipulating the amount on the client
+//   return req.body.orderPrice;
+// };
+// const { items } = req.body;
+// console.log(req.body.orderPrice)
+  // Create a PaymentIntent with the order amount and currency
+  console.log('amount', req.body.orderPrice)
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: 1100,
+    currency: "usd",
+    automatic_payment_methods: {
+      enabled: true,
+    },
+  });
+
+  res.send({
+    clientSecret: paymentIntent.client_secret,
+  });
+});
+
+
 // /////////////////////////////
 //   Logged in with account   //
 // /////////////////////////////
@@ -180,7 +206,6 @@ app.get('/userProfile', isLoggedIn, function(req, res) {
     });
   })
 });
-
 
 
 // =============================================================================
@@ -205,7 +230,7 @@ app.get('/userProfile', isLoggedIn, function(req, res) {
 // , { message: req.flash('signupMessage') }
         // process the signup form
         app.post('/signup', passport.authenticate('local-signup', {
-            successRedirect : '/profile', // redirect to the secure profile section
+            successRedirect : '/userProfile', // redirect to the secure profile section
             failureRedirect : '/signup', // redirect back to the signup page if there is an error
             failureFlash : true // allow flash messages
         }));

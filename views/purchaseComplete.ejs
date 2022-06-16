@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
 
@@ -22,7 +23,6 @@
         </section>
 
 
-        <% if ( user.local.email) { %>
             <%for(let i=0; i < bobaDB.length; i++) { %>
                 <section id="<%= bobaDB[i]._id%>"">
                     <span>Drink:</span>
@@ -35,7 +35,6 @@
                     <p><%= bobaDB[i].ice %></p>
                     <span><i class="fa-solid fa-square-xmark"></i></span>
                 </section>
-            <% } %>
             <% } %>
 
     </main>
