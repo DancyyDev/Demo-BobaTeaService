@@ -1,3 +1,5 @@
+const { session } = require('passport');
+
 module.exports = function(app, passport, db, stripe) {
   const {ObjectId} = require('mongodb')
   
@@ -24,15 +26,21 @@ module.exports = function(app, passport, db, stripe) {
       })  
     });
     
-    app.get('/purchasePage', isLoggedIn, function(req, res) {
+    app.get('/checkout', isLoggedIn, function(req, res) {
       let user = req.user._id
       console.log(user)
       db.collection('bobaDB').find().toArray((err, result) => {
+        let total = 0
+        for(let i=0; i < result.length; i++){
+          total += parseFloat(result[i].price)
+        }
+        let sumTotal = {priceTotal: total}
         if (err) return console.log(err)
-        res.render('purchase.ejs', 
+        res.render('checkout.ejs', 
         {  
           user: user,
-          bobaDB: result
+          bobaDB: result,
+          sumTotal
         })
       })
     })
@@ -62,7 +70,7 @@ module.exports = function(app, passport, db, stripe) {
       })
     })
 
-    app.get('/purchaseComplete', isLoggedIn, function(req, res) {
+    app.get('/purchaseComplete', function(req, res) {
       db.collection('bobaDB').find().toArray((err, result) => {
         if (err) return console.log(err)
         res.render('purchaseComplete.ejs', { bobaDB: result})
@@ -145,6 +153,17 @@ module.exports = function(app, passport, db, stripe) {
       })
     })
 
+    app.delete('/deleteAll', (req, res) => {
+      db.collection('bobaDB').deleteMany(
+        {
+          _id: ObjectId(req.body._id)
+        }, (err, result) => {
+        if (err) return res.send(500, err)
+        res.send('Message deleted!')
+        res.redirect('/userMenu.ejs')
+      })
+    })
+
 // /////////////////////////////
 // Purchasing route/////////////
 // /////////////////////////////
@@ -165,22 +184,29 @@ app.post('/address', (req, res) => {
     })
 })
 
+const calculateOrderAmount = (items) => {
+  console.log('177', items)
+  // Replace this constant with a calculation of the order's amount
+  // Calculate the order total on the server to prevent
+  // people from directly manipulating the amount on the client
+
+  return 1100;
+};
 
 
+app.post("/create-payment-intent", isLoggedIn, async (req, res) => {
+  db.collection('bobaDB').find().toArray((err, drinks) => {
+    let total = 0
+    for(let i=0; i < drinks.length; i++){
+      console.log(drinks[i].price)
+      total += parseFloat(drinks[i].price)
+    }})
+  // console.log('186',req.body)
+  const { items } = req.body;
 
-app.post("/create-payment-intent", async (req, res) => {
-//   const calculateOrderAmount = (items) => {
-//   // Replace this constant with a calculation of the order's amount
-//   // Calculate the order total on the server to prevent
-//   // people from directly manipulating the amount on the client
-//   return req.body.orderPrice;
-// };
-// const { items } = req.body;
-// console.log(req.body.orderPrice)
   // Create a PaymentIntent with the order amount and currency
-  console.log('amount', req.body.orderPrice)
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: 1100,
+    amount: calculateOrderAmount(items),
     currency: "usd",
     automatic_payment_methods: {
       enabled: true,
@@ -191,7 +217,6 @@ app.post("/create-payment-intent", async (req, res) => {
     clientSecret: paymentIntent.client_secret,
   });
 });
-
 
 // /////////////////////////////
 //   Logged in with account   //

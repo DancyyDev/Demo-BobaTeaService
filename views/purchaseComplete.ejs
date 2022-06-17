@@ -15,26 +15,35 @@
 
     <header>
         <h1>Bo-Bo Tea</h1>
+        <ul class="nav">
+            <li><a href="/userMenu">Menu</a></li>
+            <li><a href="/logout">Log-Out</a></li>
+        </ul>  
     </header>
 
-    <main class="adress">
+    <main class="address">
         <section>
             <h2>Your Order is on the way!</h2>
         </section>
 
-
+        <section class="orderCart">
             <%for(let i=0; i < bobaDB.length; i++) { %>
-                <section id="<%= bobaDB[i]._id%>"">
-                    <span>Drink:</span>
-                    <p><%= bobaDB[i].drink %></p>
-                    <span>Toppings:</span>
-                    <p><%= bobaDB[i].toppings %></p>
-                    <span>Sugar:</span>
-                    <p><%= bobaDB[i].sugar %></p>
-                    <span>Ice:</span>
-                    <p><%= bobaDB[i].ice %></p>
-                    <span><i class="fa-solid fa-square-xmark"></i></span>
-                </section>
+            <section id="<%= bobaDB[i]._id%>"">
+                <span class="drinks">Drink:</span>
+                <p><%= bobaDB[i].drink %></p>
+    
+                <span>Toppings:</span>
+                <p><%= bobaDB[i].toppings %></p>
+    
+                <span>Sugar:</span>
+                <p><%= bobaDB[i].sugar %></p>
+    
+                <span>Ice:</span>
+                <p><%= bobaDB[i].ice %></p>
+                
+                <span>Price:</span>
+                <p><%= bobaDB[i].price %></p>
+            </section>
             <% } %>
 
     </main>

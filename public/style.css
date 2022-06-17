@@ -82,13 +82,18 @@ h2 {
 
 #leftColumn {
   margin-left: 10%;
+  border-top-left-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+  text-align: center;
   background: beige;
 }
 
 #rightColumn {
   margin-right: 10%;
   padding: 0 0 0 1.5rem;
-  background: lightgray;
+  border-top-right-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  background: rgb(238, 238, 238);
 }
 
 h5 {
@@ -208,6 +213,38 @@ ul li::after {
 a {
   text-decoration: none;
   color: #212529;
+}
+.checkoutPage {
+  width: 80%;
+  margin: 0 10%;
+}
+
+.checkoutPage .orderCart {
+  float: left;
+  width: 30%;
+}
+.payment {
+  width:40%;
+  margin: 0 3rem;
+  float: left;
+  transition: .5s;
+  border-radius: 2rem;
+  box-shadow: 0 0px 0px rgba(0,0,0), 0 0px 0px rgba(0,0,0);
+}
+.payment:hover {
+  margin: 0 3rem;
+  border: 1px solid black;
+  transition: .5s;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.payment div {
+  width: 100%;
+  padding: 1rem;
+}
+
+.payment button {
+  margin: 1rem;
 }
 /* ////////////////////// */
 /*  Sign-in and Log-in */

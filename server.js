@@ -14,7 +14,7 @@ const flash    = require('connect-flash');
 
 // const key = require('./config/apiKeys.js')
 const Stripe = require('stripe');
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+const stripe = Stripe('sk_test_51L9yuoJnjUu1jL0i9vX5M6IMrctranEMFNujjE4CIJjY1JBe6C8xEK13OKTnVJHW18UyT74LyksajYYjSIMz9b4X00GyZvmPpo');
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);

@@ -28,12 +28,12 @@
         <% } %>
 
         <section class="ccForm">
-            
-            <form id="payment-form" action="/create-payment-intent" method="post">
+            <input  type="hidden" name="orderPrice" value="<%= sumTotal.priceTotal %>">
+            <form id="payment-form">
+                <h2>$<span id='itemPrice'><%= sumTotal.priceTotal %></span></h2>
                 <div id="payment-element">
-                    <h2>$<%= sumTotal.priceTotal %></h2>
+                    
                   <!--Stripe.js injects the Payment Element-->
-                  <input type="hidden" name="orderPrice" value="<%= sumTotal.priceTotal %>">
                 </div>
                 <button id="submit" type="submit">
                   <div class="spinner hidden" id="spinner"></div>
@@ -70,6 +70,5 @@
 
 
     <script src="main.js"></script>
-    <script src="checkout.js" defer></script>
 </body>
 </html>
