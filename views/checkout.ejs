@@ -23,7 +23,8 @@
             <h2>Your Order</h2>
             <span id="rewardPoints" class="hidden"><%= user.local.rewardPoints %></span>
             <%for(let i=0; i < bobaDB.length; i++) { %>
-                <section id="<%= bobaDB[i]._id%>"">
+                <section id="<%= bobaDB[i]._id%>">
+                    <input type="hidden" name="orderId" value="<%= bobaDB[i]._id%>">
             <span class=" drinks">Drink:</span>
                     <p>
                         <%= bobaDB[i].drink %>

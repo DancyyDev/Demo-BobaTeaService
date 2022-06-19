@@ -216,11 +216,11 @@ app.put('/updateRewards', isLoggedIn, (req,res) => {
       _id: ObjectId(req.user._id)
     },
     {$set:{
-      rewardPoints: req.user.local.rewardPoints.value + 1
+      'local.rewardPoints' : req.body.rewardPoints + 1
     }},
     {
       sort: {_id: -1},
-      upsert: true
+      upsert: false
     }, (err, result) => {
       console.log(result)
     if (err) return console.log(err)

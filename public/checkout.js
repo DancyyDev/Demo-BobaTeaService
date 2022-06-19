@@ -34,7 +34,7 @@ async function initialize() {
 async function handleSubmit(e) {
   e.preventDefault();
   setLoading(true);
-  rewardPoints();
+  givePoints();
   console.log(rewardPoints) 
   const { error } = await stripe.confirmPayment({
     elements,
@@ -91,17 +91,15 @@ async function checkStatus() {
 /////////////
 
 const points = document.querySelector('#rewardPoints').innerText
-const gainPoints = parseInt(points)
+const rewardPoints = parseInt(points)
 
-function rewardPoints() {
-  
-  console.log('95:', gainPoints)
+function givePoints() {
   console.log('Give me points!!!')
   fetch('updateRewards', {
     method: 'PUT',
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
-        'rewardPoints': gainPoints
+        'rewardPoints': rewardPoints
     })
   })
   .then(response => {
