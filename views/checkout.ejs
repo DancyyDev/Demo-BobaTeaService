@@ -21,39 +21,35 @@
 
         <section class="orderCart">
             <h2>Your Order</h2>
-            <span id="rewardPoints" class="hidden"><%= user.local.rewardPoints %></span>
+            <span id="rewardPoints" class="hidden">
+                <%= user.local.rewardPoints %>
+            </span>
             <%for(let i=0; i < bobaDB.length; i++) { %>
-                <section id="<%= bobaDB[i]._id%>">
-                    <input type="hidden" name="orderId" value="<%= bobaDB[i]._id%>">
-            <span class=" drinks">Drink:</span>
-                    <p>
-                        <%= bobaDB[i].drink %>
-                    </p>
+                <% if (bobaDB[i].status==='Pending' ) {%>
+                    <section id="<%= bobaDB[i]._id%>">
+                        <input type="hidden" name="orderId" value="<%= bobaDB[i]._id%>">
 
-                    <span>Toppings:</span>
-                    <p>
-                        <%= bobaDB[i].toppings %>
-                    </p>
+                        <span class=" drinks">Drink:</span>
+                        <p><%= bobaDB[i].drink %></p>
 
-                    <span>Sugar:</span>
-                    <p>
-                        <%= bobaDB[i].sugar %>
-                    </p>
+                        <span>Toppings:</span>
+                        <p><%= bobaDB[i].toppings %></p>
 
-                    <span>Ice:</span>
-                    <p>
-                        <%= bobaDB[i].ice %>
-                    </p>
+                        <span>Sugar:</span>
+                        <p><%= bobaDB[i].sugar %></p>
 
-                    <span>Price:</span>
-                    <p>
-                        <%= bobaDB[i].price %>
-                    </p>
-                </section>
-                <% } %>
-                    <h2>$<span id='totalPrice'>
-                            <%= sumTotal.priceTotal %>
-                        </span></h2>
+                        <span>Ice:</span>
+                        <p><%= bobaDB[i].ice %></p>
+
+                        <span>Price:</span>
+                        <p><%= bobaDB[i].price %></p>
+                        
+                    </section>
+                    <% } %>
+                        <% } %>
+                            <h2>$<span id='totalPrice'>
+                                    <%= sumTotal.priceTotal %>
+                                </span></h2>
         </section>
         <section class="payment">
             <form id="payment-form">

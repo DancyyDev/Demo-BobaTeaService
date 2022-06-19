@@ -210,7 +210,7 @@
 
     <section class="orderCart">
         <%for(let i=0; i < bobaDB.length; i++) { %>
-           
+        <%  if (bobaDB[i].status === 'Pending' ) {%>
         <section id="<%= bobaDB[i]._id%>"">
             <span>Size:</span>
             <p><%= bobaDB[i].size %></p>
@@ -226,6 +226,7 @@
             <p><%= bobaDB[i].price %></p>
             <span><i class="fa-solid fa-square-xmark"></i></span>
         </section>
+        <% } %>
         <% } %>
 
             <a href="/checkout"><button id="orderComplete">Complete Order</button></a>

@@ -32,10 +32,12 @@ async function initialize() {
 }
 
 async function handleSubmit(e) {
+
   e.preventDefault();
   setLoading(true);
   givePoints();
-  console.log(rewardPoints) 
+  changeStatus();
+
   const { error } = await stripe.confirmPayment({
     elements,
     confirmParams: {
@@ -112,6 +114,27 @@ function givePoints() {
   })
 }
 
+// ///////////////////
+// Updateing status
+// //////////////////
+
+function changeStatus() {
+  fetch('changeStatus', {
+    method: 'PUT',
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+        'status': 'In Progress'
+    })
+  })
+  .then(response => {
+      if (response.ok) 
+      return response.json()
+  })
+  .then(data => {
+    console.log(data)
+    // window.location.reload(true)
+  })
+}
 
 // ------- UI helpers -------
 

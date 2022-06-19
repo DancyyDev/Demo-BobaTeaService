@@ -31,7 +31,9 @@ module.exports = function(app, passport, db, stripe) {
     app.get('/checkout', isLoggedIn, function(req, res) {
       let user = req.user._id
       console.log(user)
-      db.collection('bobaDB').find().toArray((err, result) => {
+      db.collection('bobaDB').find({
+        status: "Pending"
+      }).toArray((err, result) => {
         let total = 0
         for(let i=0; i < result.length; i++){
           total += parseFloat(result[i].price)
@@ -84,8 +86,10 @@ module.exports = function(app, passport, db, stripe) {
         req.logout();
         res.redirect('/');
     });
+//////////////////////////////////////////////////////////
+// create, updating and deleting orders /////////////////
+/////////////////////////////////////////////////////////
 
-// create, updating and deleting orders  ===============================================================
     app.post('/addToOrder', isLoggedIn, (req, res) => {
       let user = req.user._id
       console.log(user)
@@ -107,44 +111,26 @@ module.exports = function(app, passport, db, stripe) {
     })
 
     // Updates the order when u finish buying drink and sends the order to the shop as status in progress
-    app.post('/addToOrderProgress', isLoggedIn, (req, res) => {
-      db.collection('bobaDB').updateMany(
-      {
-        userId: req.user._id, 
-      },
-       {$set: {
-          status: 'In Progress'// status: 'Pending', 'In Progress', 'Complete'
-        }
-      }, {
-        sort: {_id: -1},
-        upsert: true
-      }, (err, result) => {
-        if (err) return console.log(err)
-        console.log('saved to database')
-        res.redirect('/userMenu')
-      })
-    })
 
-    // updates when the order is complete and sends message back to customer that order is complete
-    app.post('/addToOrderComplete', isLoggedIn, (req, res) => {
+    app.put('/changeStatus', isLoggedIn, (req, res) => {
       db.collection('bobaDB').updateMany(
         {
-          userId: req.local.user, 
+          userId: ObjectId(req.user._id)
         },
          {$set: {
-            status: 'Complete'// status: 'Pending', 'In Progress', 'Complete'
+            status: req.body.status// status: 'Pending', 'In Progress', 'Complete'
           }
         }, {
           sort: {_id: -1},
           upsert: true
         }, (err, result) => {
         if (err) return console.log(err)
-        console.log('saved to database')
-        res.redirect('/userMenu')
+        console.log('Updated Status, order in progress')
       })
     })
 
     //deletes order on the menu page
+
     app.delete('/deleteOrderItem', (req, res) => {
       db.collection('bobaDB').findOneAndDelete(
         {
@@ -211,6 +197,10 @@ console.log('205', total)
   });
 });
 
+// /////////////////////////
+// Updating Rewards ////////
+// /////////////////////////
+
 app.put('/updateRewards', isLoggedIn, (req,res) => {
     db.collection('users').findOneAndUpdate({
       _id: ObjectId(req.user._id)
@@ -227,6 +217,7 @@ app.put('/updateRewards', isLoggedIn, (req,res) => {
     console.log('update to database')
   })
 })
+
 // /////////////////////////////
 //   Logged in with account   //
 // /////////////////////////////
