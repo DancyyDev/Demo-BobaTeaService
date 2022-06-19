@@ -1,7 +1,8 @@
       // This is your test publishable API key.
 const stripe = Stripe("pk_test_51L9yuoJnjUu1jL0icE5yoCHGXNu2VXYw0JhGiiG28ZgNGTYqnrHYEQ4joDFnM59Pw15b1w49HEAoBuPWa8sC3xkx00LWgSjLDX");
+const totalPrice = document.querySelector('#totalPrice').innerText
 
-const items = [{ id: "xl-tshirt" }];
+const total = parseFloat(totalPrice) * 100;
 
 let elements;
 
@@ -17,7 +18,7 @@ async function initialize() {
   const response = await fetch("/create-payment-intent", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ items }),
+    body: JSON.stringify( {total} ),
   });
   const { clientSecret } = await response.json();
 
@@ -33,7 +34,8 @@ async function initialize() {
 async function handleSubmit(e) {
   e.preventDefault();
   setLoading(true);
-
+  rewardPoints();
+  console.log(rewardPoints) 
   const { error } = await stripe.confirmPayment({
     elements,
     confirmParams: {
@@ -83,6 +85,35 @@ async function checkStatus() {
       break;
   }
 }
+
+//////////////
+// Updating rewards system
+/////////////
+
+const points = document.querySelector('#rewardPoints').innerText
+const gainPoints = parseInt(points)
+
+function rewardPoints() {
+  
+  console.log('95:', gainPoints)
+  console.log('Give me points!!!')
+  fetch('updateRewards', {
+    method: 'PUT',
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+        'rewardPoints': gainPoints
+    })
+  })
+  .then(response => {
+      if (response.ok) 
+      return response.json()
+  })
+  .then(data => {
+    console.log(data)
+    // window.location.reload(true)
+  })
+}
+
 
 // ------- UI helpers -------
 

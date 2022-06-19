@@ -6,7 +6,7 @@ const itemPrice = document.querySelector('#itemPrice')
 // require("dotenv").config({path:'./config/.env'})
 
       // const Stripe = require('stripe');
-const stripe = Stripe('pk_test_51L9yuoJnjUu1jL0icE5yoCHGXNu2VXYw0JhGiiG28ZgNGTYqnrHYEQ4joDFnM59Pw15b1w49HEAoBuPWa8sC3xkx00LWgSjLDX');
+// const stripe = Stripe('pk_test_51L9yuoJnjUu1jL0icE5yoCHGXNu2VXYw0JhGiiG28ZgNGTYqnrHYEQ4joDFnM59Pw15b1w49HEAoBuPWa8sC3xkx00LWgSjLDX');
 
 
 Array.from(deleteItem).forEach(function(element) {

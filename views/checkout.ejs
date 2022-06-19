@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="style.css" />
     <script src="https://js.stripe.com/v3/"></script>
     <script src="checkout.js" defer></script>
+    <!-- <script src="main.js" ></script> -->
 </head>
 
 <body>
@@ -20,6 +21,7 @@
 
         <section class="orderCart">
             <h2>Your Order</h2>
+            <span id="rewardPoints" class="hidden"><%= user.local.rewardPoints %></span>
             <%for(let i=0; i < bobaDB.length; i++) { %>
                 <section id="<%= bobaDB[i]._id%>"">
             <span class=" drinks">Drink:</span>

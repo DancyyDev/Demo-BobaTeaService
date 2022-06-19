@@ -22,7 +22,9 @@ module.exports = function(app, passport, db, stripe) {
     app.get('/userMenu', isLoggedIn, function(req, res) {
       db.collection('bobaDB').find().toArray((err, result) => {
         if (err) return console.log(err)
-        res.render('userMenu.ejs', { user: result, bobaDB: result})
+        res.render('userMenu.ejs', { 
+          user: result, 
+          bobaDB: result})
       })  
     });
     
@@ -38,7 +40,7 @@ module.exports = function(app, passport, db, stripe) {
         if (err) return console.log(err)
         res.render('checkout.ejs', 
         {  
-          user: user,
+          user: req.user,
           bobaDB: result,
           sumTotal
         })
@@ -184,40 +186,47 @@ app.post('/address', (req, res) => {
     })
 })
 
-const calculateOrderAmount = (items) => {
-  console.log('177', items)
-  // Replace this constant with a calculation of the order's amount
-  // Calculate the order total on the server to prevent
-  // people from directly manipulating the amount on the client
-
-  return 1100;
+const calculateOrderAmount = (total) => {
+  console.log('177', total)
+  let price = total
+  console.log(price.total)
+  return price.total;
 };
 
 
 app.post("/create-payment-intent", isLoggedIn, async (req, res) => {
-  db.collection('bobaDB').find().toArray((err, drinks) => {
-    let total = 0
-    for(let i=0; i < drinks.length; i++){
-      console.log(drinks[i].price)
-      total += parseFloat(drinks[i].price)
-    }})
-  // console.log('186',req.body)
-  const { items } = req.body;
-
+  
+  const total = req.body;
+console.log('205', total)
   // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: calculateOrderAmount(items),
+    amount: calculateOrderAmount(total),
     currency: "usd",
     automatic_payment_methods: {
       enabled: true,
     },
   });
-
   res.send({
     clientSecret: paymentIntent.client_secret,
   });
 });
 
+app.put('/updateRewards', isLoggedIn, (req,res) => {
+    db.collection('users').findOneAndUpdate({
+      _id: ObjectId(req.user._id)
+    },
+    {$set:{
+      rewardPoints: req.user.local.rewardPoints.value + 1
+    }},
+    {
+      sort: {_id: -1},
+      upsert: true
+    }, (err, result) => {
+      console.log(result)
+    if (err) return console.log(err)
+    console.log('update to database')
+  })
+})
 // /////////////////////////////
 //   Logged in with account   //
 // /////////////////////////////
