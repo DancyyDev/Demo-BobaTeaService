@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="complete.css">
     <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
@@ -28,8 +29,11 @@
         </section>
 
         <section class="orderCart">
+            <% if(user.local.email) { %>
             <%for(let i=0; i < bobaDB.length; i++) { %>
-            <section id="<%= bobaDB[i]._id%>"">
+            <%  if( bobaDB[i].status === "In Progress" ) { %>
+
+            <section id="<%= bobaDB[i]._id%>">
                 <span class="drinks">Drink:</span>
                 <p><%= bobaDB[i].drink %></p>
     
@@ -46,6 +50,9 @@
                 <p><%= bobaDB[i].price %></p>
             </section>
             <% } %>
+            <% } %>
+            <% } %>
+        </section>
 
     </main>
     

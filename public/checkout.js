@@ -1,5 +1,6 @@
       // This is your test publishable API key.
-const stripe = Stripe("pk_test_51L9yuoJnjUu1jL0icE5yoCHGXNu2VXYw0JhGiiG28ZgNGTYqnrHYEQ4joDFnM59Pw15b1w49HEAoBuPWa8sC3xkx00LWgSjLDX");
+// import stripePublishableKey from 'apiKeys.js'
+const stripe = Stripe('pk_test_51L9yuoJnjUu1jL0icE5yoCHGXNu2VXYw0JhGiiG28ZgNGTYqnrHYEQ4joDFnM59Pw15b1w49HEAoBuPWa8sC3xkx00LWgSjLDX');
 const totalPrice = document.querySelector('#totalPrice').innerText
 
 const total = parseFloat(totalPrice) * 100;

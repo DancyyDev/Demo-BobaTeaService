@@ -6,24 +6,27 @@
     <title>Accept a payment</title>
     <meta name="description" content="A demo of a payment on Stripe" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="style.css" />
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <link rel="stylesheet" href="checkout.css" />
     <script src="https://js.stripe.com/v3/"></script>
     <script src="checkout.js" defer></script>
+    
     <!-- <script src="main.js" ></script> -->
 </head>
 
 <body>
+
     <header>
         <h1>Bo-Bo Tea</h1>
+        <span>back to <a href="/userMenu">Menu</a></span>
     </header>
+
     <!-- Display a payment form -->
     <main class="checkoutPage">
 
         <section class="orderCart">
             <h2>Your Order</h2>
-            <span id="rewardPoints" class="hidden">
-                <%= user.local.rewardPoints %>
-            </span>
+            <span id="rewardPoints" class="hidden"><%= user.local.rewardPoints %></span>
             <%for(let i=0; i < bobaDB.length; i++) { %>
                 <% if (bobaDB[i].status==='Pending' ) {%>
                     <section id="<%= bobaDB[i]._id%>">
@@ -43,28 +46,59 @@
 
                         <span>Price:</span>
                         <p><%= bobaDB[i].price %></p>
-                        
+
                     </section>
                     <% } %>
                         <% } %>
-                            <h2>$<span id='totalPrice'>
-                                    <%= sumTotal.priceTotal %>
-                                </span></h2>
+                            <h2>$<span id='totalPrice'><%= sumTotal.priceTotal %></span></h2>
         </section>
-        <section class="payment">
-            <form id="payment-form">
-                <div id="payment-element">
-                    <!--Stripe.js injects the Payment Element-->
-                </div>
-                <button id="submit">
-                    <div class="spinner hidden" id="spinner"></div>
-                    <span id="button-text">Pay now</span>
-                </button>
-                <div id="payment-message" class="hidden"></div>
-            </form>
-        </section>
-    </main>
+    
 
+            <!-- Address input -->
+            <section class="addressInput">
+                <% for( let i = 0; i < bobaDBaddress.length; i++) { %>
+                    <section class="addressInput">
+                        <span><%= bobaDBaddress[i].address1 %>, <%= bobaDBaddress[i].address %></span>
+                        <span><%= bobaDBaddress[i].city %>, <%= bobaDBaddress[i].state %>, <%= bobaDBaddress[i].zip %></span>
+                    </section>
+                    <% } %>
+            
+                <form action="/address" method="post">
+                    <label for="address1">Address:</label><br>
+                    <input type="text" name="address1" placeholder="Address"><br>
+
+                    <input type="text" name="address2" placeholder="Apt#, Floor, etc..."><br>
+
+                    <label for="city">City:</label><br>
+                    <input type="text" name="city" placeholder="City"><br>
+
+                    <label for="state">State:</label><br>
+                    <input type="text" name="state" placeholder="State"><br>
+
+                    <label for="zip">Area Zip Code:</label><br>
+                    <input type="text" name="zip" placeholder="Zipcode"><br>
+
+
+                    <a href="/purchaseCCard"><button>Add Address</button></a>
+
+                </form>
+            </section>
+
+            <!-- payemnt input -->
+            <section class="payment">
+                <form id="payment-form">
+                    <div id="payment-element">
+                        <!--Stripe.js injects the Payment Element-->
+                    </div>
+                    <button id="submit">
+                        <div class="spinner hidden" id="spinner"></div>
+                        <span id="button-text">Pay now</span>
+                    </button>
+                    <div id="payment-message" class="hidden"></div>
+                </form>
+            </section>
+    </main>
+    <script type="module" src="apiKeys.js"></script>
 </body>
 
 </html>

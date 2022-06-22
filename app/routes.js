@@ -1,3 +1,4 @@
+const { keys } = require('lodash');
 const { session } = require('passport');
 
 module.exports = function(app, passport, db, stripe) {
@@ -29,8 +30,8 @@ module.exports = function(app, passport, db, stripe) {
     });
     
     app.get('/checkout', isLoggedIn, function(req, res) {
-      let user = req.user._id
-      console.log(user)
+      // let user = req.user._id
+      // console.log(user)
       db.collection('bobaDB').find({
         status: "Pending"
       }).toArray((err, result) => {
@@ -39,45 +40,40 @@ module.exports = function(app, passport, db, stripe) {
           total += parseFloat(result[i].price)
         }
         let sumTotal = {priceTotal: total}
-        if (err) return console.log(err)
-        res.render('checkout.ejs', 
+        if (err){
+          return console.log(err)
+        } else {
+        db.collection('bobaDBaddress').find({
+          userId: ObjectId(req.user._id)
+        }).toArray((err,address) => {
+          if(err) return console.log(err)
+          res.render('checkout.ejs', 
         {  
           user: req.user,
           bobaDB: result,
+          bobaDBaddress: address,
+          stripePublishableKey: keys.stripePublishableKey,
           sumTotal
         })
-      })
-    })
-
-    app.get('/purchaseCCard', isLoggedIn, function(req, res) {
-      let user = req.user
-      console.log(user)
-      db.collection('bobaDB').find().toArray((err, drinks) => {
-        let total = 0
-        for(let i=0; i < drinks.length; i++){
-          console.log(drinks[i].price)
-          total += parseFloat(drinks[i].price)
-        }
-        let sumTotal = {priceTotal: total}
-        if (err) {
-          return console.log(err)
-        } else {
-          db.collection('bobaDBaddress').find().toArray((err, delivery) => {
-            if (err) {
-              return console.log(err)
-            } else { 
-              res.render('purchaseCCard.ejs', { bobaDB: drinks, bobaDBaddress: delivery, sumTotal})
-            }
-               
-            }) 
-        }
+        })
+        }  
       })
     })
 
     app.get('/purchaseComplete', function(req, res) {
-      db.collection('bobaDB').find().toArray((err, result) => {
-        if (err) return console.log(err)
-        res.render('purchaseComplete.ejs', { bobaDB: result})
+      db.collection('bobaDB').find({ userId: ObjectId(req.user._id) }).toArray((err, result) => {
+        if (err) {
+          return console.log(err)
+        } else {
+          db.collection('bobaDBaddress').find().toArray((err, address) => {
+            if(err) return console.log(err)
+              res.render('purchaseComplete.ejs', { 
+                bobaDB: result,
+                bobaDBaddress: address,
+                user: req.user
+              })
+          })
+        } 
       })  
     });
 
@@ -157,18 +153,19 @@ module.exports = function(app, passport, db, stripe) {
 // /////////////////////////////
 
 app.post('/address', (req, res) => {
-  let user = req.user._id
+  let user = req.body._id
   db.collection('bobaDBaddress').insertOne(
     {
-      userId: user,
+      userId: ObjectId(user),
       address1: req.body.address1,
       address2: req.body.address2,
       city: req.body.city,
       state: req.body.state,
-      zip: req.body.zip
+      zip: req.body.zip,
+      default: true
     }, (err,result) => {
       if(err) console.log(err)
-      res.render('purchaseCCard.ejs')
+      res.render('checkout.ejs')
     })
 })
 

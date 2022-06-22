@@ -57,6 +57,16 @@ h2 {
   padding: 1.5rem 1% 0 3%;
   border-radius: 3rem;
   border: 3px solid #18638f;
+  transition: .5s;
+}
+.frontLogin:hover {
+  width: 30%;
+  height: 20rem;
+  padding: 1.5rem 1% 0 3%;
+  border-radius: 3rem;
+  background: white;
+  border: 3px solid white;
+  transition: .5s;
 }
 
 .frontLogin span {
@@ -75,8 +85,8 @@ h2 {
 
 #leftColumn,
 #rightColumn {
-  width: 23%;
-  height: 55rem;
+  width: 50%;
+  /* height: 55rem; */
   float: left;
 }
 
@@ -89,10 +99,9 @@ h2 {
 }
 
 #rightColumn {
-  margin-right: 10%;
-  padding: 0 0 0 1.5rem;
-  border-top-right-radius: 2rem;
-  border-bottom-right-radius: 2rem;
+  margin: 0 10%;
+  padding: 0 1.5rem;
+  border-radius: 2rem;
   background: rgb(238, 238, 238);
 }
 
@@ -121,13 +130,14 @@ div {
 
 /* orderCart */
 
-.orderCart {
+  .orderCart {
   float: left;
   width: 20%;
   padding: 2rem 2rem;
   border: 1px solid rgba(0,0,0,0.25);
   border-radius: 3rem;
   position: sticky;
+  background: white;
 }
 
 .orderCart section {
@@ -177,7 +187,7 @@ div {
 }
 #orderComplete:focus-visible{
       outline-offset: 1px;
-  }
+}
 
 
 /* ////////////////////// */
@@ -214,6 +224,7 @@ a {
   text-decoration: none;
   color: #212529;
 }
+
 .checkoutPage {
   width: 80%;
   margin: 0 10%;

@@ -29,25 +29,3 @@ Array.from(deleteItem).forEach(function(element) {
       })
     });
   });
-
-
-  // payBtn.addEventListener('click', function(e){
-  //   e.preventDefault();
-  //   console.log('hello')
-  //   fetch('/checkout', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       price: itemPrice
-  //     }),
-  //     })
-  //     .then((response) => response.json())
-  //     .then((session) => {
-  //       stripe.redirectToCheckout({sessionId: session.id})
-  //     })
-  //   .catch((error) => {
-  //      console.error('Error:',error)
-  //   })
-  // })
