@@ -19,13 +19,14 @@ header {
   display: flex;
 }
 .addressInput {
+  width: 50%;
   background: white;
   padding: 1rem;
   border-radius: 3rem;
   margin: 0 5%;
 }
 .addressInput span{
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 .addressInput input{
   width: 100%;

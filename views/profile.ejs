@@ -10,6 +10,7 @@
     <script src="https://kit.fontawesome.com/d60e865119.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="profile.css">
 </head>
 <body>
 
@@ -22,27 +23,21 @@
     </header>
 
     <main class="mainProfile">
-        <section id="profileImage"></section>
         <section id="profileInfo">
-            <h3>User: <%= user.local.userName%></h3>
-            <span>Name: <%= user.local.firstName%> <%= user.local.lastName%></span><br>
-            <span>Email: <%= user.local.email%></span>   
+            <h4>User:<br>
+            <span><%= user.local.userName%></span></h4>
+            <h4>Name:<br>
+            <span><%= user.local.firstName%> <%= user.local.lastName%></span></h4>
+            <h4>Email:<br>
+            <span><%= user.local.email%></span></h4>   
         </section>
+
         <section id="profileRewards">
-            <div class="checkBox stamp1"><i class="fa-solid fa-square-check"></i></div>
-            <div class="checkBox stamp2"><i class="fa-solid fa-square-check"></i></div>
-            <div class="checkBox stamp3"><i class="fa-solid fa-square-check"></i></div>
-            <div class="checkBox stamp4"><i class="fa-solid fa-square-check"></i></div>
-            <div class="checkBox stamp5"><i class="fa-solid fa-square-check"></i></div>
-            <div class="checkBox stamp6"><i class="fa-solid fa-square-check"></i></div>
-            <div class="checkBox stamp7"><i class="fa-solid fa-square-check"></i></div>
-            <div class="checkBox stamp8"><i class="fa-solid fa-square-check"></i></div>
-            <div class="checkBox stamp9"><i class="fa-solid fa-square-check"></i></div>
-            <div class="checkBox stamp10"><i class="fa-solid fa-square-check"></i></div>
+            <h4>You have</h4>
+            <h2> <%= user.local.rewardPoints %> points</h2>
+           
         </section>
     </main>
 
-    
-    <script src="main.js"></script>
 </body>
 </html>

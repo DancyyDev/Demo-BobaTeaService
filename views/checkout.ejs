@@ -56,14 +56,18 @@
 
             <!-- Address input -->
             <section class="addressInput">
+                <h4>Delivery:</h4>
                 <% for( let i = 0; i < bobaDBaddress.length; i++) { %>
-                    <section class="addressInput">
-                        <span><%= bobaDBaddress[i].address1 %>, <%= bobaDBaddress[i].address %></span>
+                    <section class="addressInputDisplay">
+                        <span><%= bobaDBaddress[i].address1 %>,</span>
+                        <span><%= bobaDBaddress[i].address %></span>
                         <span><%= bobaDBaddress[i].city %>, <%= bobaDBaddress[i].state %>, <%= bobaDBaddress[i].zip %></span>
                     </section>
                     <% } %>
             
                 <form action="/address" method="post">
+                    <input type="hidden" name="userId" value="<%=user.local._id%>">
+
                     <label for="address1">Address:</label><br>
                     <input type="text" name="address1" placeholder="Address"><br>
 

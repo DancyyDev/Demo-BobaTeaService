@@ -29,7 +29,7 @@ header {
 .mainOpening {
   width: 80%;
   margin: 0 10%;
-  height: 40rem;
+  height: 30rem;
   display: flex;
   flex-direction: row;
   justify-content: left;
@@ -54,9 +54,10 @@ h2 {
 .frontLogin {
   width: 30%;
   height: 20rem;
+  margin: 0 5%;
   padding: 1.5rem 1% 0 3%;
   border-radius: 3rem;
-  border: 3px solid #18638f;
+  background: white;
   transition: .5s;
 }
 .frontLogin:hover {
@@ -65,7 +66,6 @@ h2 {
   padding: 1.5rem 1% 0 3%;
   border-radius: 3rem;
   background: white;
-  border: 3px solid white;
   transition: .5s;
 }
 
@@ -77,16 +77,19 @@ h2 {
   width: 50%;
 }
 
-
-
+footer {
+  height: 10rem;
+  width: 100%;
+  background: rgb(255,255,255,0.5);
+  margin-top: 5rem;
+}
 /* ////////////////////// */
 /* Menu*/
 /* ////////////////////// */
 
 #leftColumn,
 #rightColumn {
-  width: 50%;
-  /* height: 55rem; */
+  width: 40%;
   float: left;
 }
 
@@ -211,7 +214,7 @@ ul li {
 }
 
 ul li:hover {
-  color: white;
+  font: white;
   list-style: none;
   box-shadow: inset 200px 0 0 0 #54b3d6;
 }
@@ -272,7 +275,7 @@ a {
   width: 45%;
   padding: 2.5rem 1% 0 3%;
   border-radius: 3rem;
-  border: 3px solid #18638f;
+  background: rgb(255, 255, 255, 0.6);
 }
 
 .signIn h3 {
@@ -285,6 +288,7 @@ a {
   height: 40rem;
   float: left;
   padding: 0 7.5%;
+  background: rgb(255, 255, 255, 0.6);
 }
 
 .signupText h4 {
@@ -304,7 +308,6 @@ a {
   padding: 2% 2.5%;
   border-radius: 2rem;
   width: 25%;
-  border: 3px solid #18638f;
 }
 
 .logIn span {
@@ -412,62 +415,6 @@ button:focus-visible{
 
 .hidden {
   display: none;
-}
-/* //////////////// */
-/* Profile */
-/* //////////////// */
-
-.mainProfile {
-    width: 80%;
-    height: 40rem;
-    margin: 0 10%;
-}
-
-#profileImage {
-    height: 20rem;
-    width: 25%;
-    margin: 5rem 5rem 0 0;
-    float: left;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-}
-
-#profileInfo {
-    height: 20rem;
-    width: 30%;
-    margin: 5rem 5rem 0 0;
-    float: left;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-}
-
-#profileRewards {
-    width: 25%;
-    height: 50rem;
-    margin: 5rem 0 0 0;
-    float: left;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-}
-
-#profileFavBev {
-    width: 100%;
-    height: 10rem;
-    margin-top: 5rem;
-    float: left;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-}
-
-.checkBox {
-  width: 50%;
-  height: 10rem;
-  transition: .5s;
-  box-shadow: 0 0px 0px rgba(0,0,0,0.25), 0 0px 0px rgba(0,0,0,0.22);
-}
-.checkBox:hover {
-  transition: .5s;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-}
-
-.checkBox .fa-square-check {
-  font-size: 8rem;
 }
 
 /* //////////////// */

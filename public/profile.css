@@ -1,0 +1,47 @@
+
+/* //////////////// */
+/* Profile */
+/* //////////////// */
+body {
+    background: url('./assets/bobabg_bg01.png');
+    background-size: contain;
+  }
+
+.mainProfile {
+    width: 80%;
+    height: 40rem;
+    margin: 0 10%;
+}
+
+
+#profileInfo {
+    height: 20rem;
+    width: 30%;
+    margin: 5rem 5rem 0 0;
+    float: left;
+    background: rgb(255,255,255,0.5);
+    padding: 1rem;
+    border-radius: 2rem;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+#profileInfo span {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+#profileInfo h4 {
+    font-size: .8rem;
+    font-weight: 400;
+}
+
+#profileRewards {
+    width: 25%;
+    /* height: 50rem; */
+    margin: 5rem 0 0 0;
+    float: left;
+    background: rgb(255,255,255,0.5);
+    padding: 1rem;
+    border-radius: 2rem;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+

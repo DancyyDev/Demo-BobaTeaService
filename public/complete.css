@@ -2,3 +2,46 @@ body {
   background: url('./assets/bobabg_bg04.png');
   background-size: cover;
 }
+
+.completeOrder {
+  display: flex;
+  flex-direction: column;
+  margin:  0 10%;
+}
+#orderDelivery {
+  width: 100%;
+  margin: 5rem 0;
+}
+
+#orderDelivery span {
+  font-weight: 600;
+  font-size: 2rem;
+}
+.orderSent {
+  display: flex;
+  width: 100%;
+  padding: 2rem 2rem;
+  border-radius: 3rem;
+  position: sticky;
+  background: rgb(255,255,255, 0.5);
+}
+
+.orderSent section {
+  margin: 0 5rem 2.5rem 0;
+}
+
+.orderSent span,
+.orderSent p {
+  margin: 0;
+}
+
+.orderSent span{
+  font-size: .8rem;
+  margin-top: .5rem;
+}
+
+.orderSent p{
+  font-size: 1rem;
+  font-weight: 700;
+}
+

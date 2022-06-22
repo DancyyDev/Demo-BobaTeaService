@@ -23,12 +23,24 @@
         </ul>  
     </header>
 
-    <main class="address">
+    <main class="completeOrder">
         <section>
             <h2>Your Order is on the way!</h2>
         </section>
 
-        <section class="orderCart">
+        <section id="orderDelivery">
+            <h3>Your sweet drink is being delivered to:</h3>
+            <% if( user.local.email){ %>
+            <% for( let i = 0; i < bobaDBaddress.length; i++) { %>
+                <section class="addressInput">
+                    <span><%= bobaDBaddress[i].address1 %>, <%= bobaDBaddress[i].address %></span>
+                    <span><%= bobaDBaddress[i].city %>, <%= bobaDBaddress[i].state %>, <%= bobaDBaddress[i].zip %></span>
+                </section>
+                <% } %>
+                <% } %>
+        </section>
+
+        <section class="orderSent">
             <% if(user.local.email) { %>
             <%for(let i=0; i < bobaDB.length; i++) { %>
             <%  if( bobaDB[i].status === "In Progress" ) { %>

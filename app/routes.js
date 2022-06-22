@@ -35,6 +35,7 @@ module.exports = function(app, passport, db, stripe) {
       db.collection('bobaDB').find({
         status: "Pending"
       }).toArray((err, result) => {
+
         let total = 0
         for(let i=0; i < result.length; i++){
           total += parseFloat(result[i].price)
@@ -44,8 +45,9 @@ module.exports = function(app, passport, db, stripe) {
           return console.log(err)
         } else {
         db.collection('bobaDBaddress').find({
-          userId: ObjectId(req.user._id)
-        }).toArray((err,address) => {
+          user: req.user._id
+        })
+        .toArray((err, address) => {
           if(err) return console.log(err)
           res.render('checkout.ejs', 
         {  
@@ -60,12 +62,14 @@ module.exports = function(app, passport, db, stripe) {
       })
     })
 
-    app.get('/purchaseComplete', function(req, res) {
+    app.get('/purchaseComplete', isLoggedIn, function(req, res) {
       db.collection('bobaDB').find({ userId: ObjectId(req.user._id) }).toArray((err, result) => {
         if (err) {
           return console.log(err)
         } else {
-          db.collection('bobaDBaddress').find().toArray((err, address) => {
+          db.collection('bobaDBaddress').find({
+            user: req.user._id
+          }).toArray((err, address) => {
             if(err) return console.log(err)
               res.render('purchaseComplete.ejs', { 
                 bobaDB: result,
@@ -152,11 +156,11 @@ module.exports = function(app, passport, db, stripe) {
 // Purchasing route/////////////
 // /////////////////////////////
 
-app.post('/address', (req, res) => {
-  let user = req.body._id
+app.post('/address', isLoggedIn, (req, res) => {
+  let user = req.user._id
   db.collection('bobaDBaddress').insertOne(
     {
-      userId: ObjectId(user),
+      user: user,
       address1: req.body.address1,
       address2: req.body.address2,
       city: req.body.city,
@@ -165,7 +169,8 @@ app.post('/address', (req, res) => {
       default: true
     }, (err,result) => {
       if(err) console.log(err)
-      res.render('checkout.ejs')
+      console.log('Saved Address')
+      res.redirect('/checkout')
     })
 })
 
