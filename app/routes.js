@@ -234,6 +234,42 @@ app.get('/userProfile', isLoggedIn, function(req, res) {
   })
 });
 
+// //////////////
+// Employees Only
+// /////////////
+
+app.get('/employee', function(req, res) {
+    if (err) return console.log(err)
+    res.render('bobaFriends.ejs');
+  })
+
+  // //////////////////////////
+  // Employee Login and SignUp
+  // //////////////////////////
+app.post('/loginEmployee', passport.authenticate('local-login', {
+    successRedirect : '/bobaScreen',
+    failureRedirect : '/',
+    failureFlash : true
+}));
+
+app.post('/signupEmployee', passport.authenticate('local-signup', {
+  successRedirect : '/userProfile', // redirect to the secure profile section
+  failureRedirect : '/signup', // redirect back to the signup page if there is an error
+  failureFlash : true // allow flash messages
+}));
+
+// ////////////////////
+// Eployee Screen
+// ////////////////////
+
+app.get('/bobaScreen', isLoggedIn, function(req, res) {
+  db.collection('bobaDB').find().toArray((err, result) => {
+    if (err) return console.log(err)
+    res.render('userMenu.ejs', { 
+      user: result, 
+      bobaDB: result})
+  })
+})
 
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
