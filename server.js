@@ -13,7 +13,7 @@ const passport = require('passport');
 const flash    = require('connect-flash');
 
 // const keys = require('./config/apiKeys.js')
-// const Stripe = require('stripe');
+const Stripe = require('stripe');
 // const stripe = Stripe(keys.stripeSecretKey);
 
 const stripe = {
