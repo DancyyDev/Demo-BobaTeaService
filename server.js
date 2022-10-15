@@ -12,12 +12,14 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const flash    = require('connect-flash');
 
-// const keys = require('./config/apiKeys.js')
-// const Stripe = require('stripe');
-const stripe = {
-  stripePublishableKey: process.env.STRIPE_PUBLIC_KEY,
-  stripeSecretKey: process.env.STRIPE_SECRET_KEY
-}
+const keys = require('./config/apiKeys.js')
+const Stripe = require('stripe');
+const stripe = Stripe(keys.stripeSecretKey);
+
+// const stripe = {
+//   stripePublishableKey: process.env.STRIPE_PUBLIC_KEY,
+//   stripeSecretKey: process.env.STRIPE_SECRET_KEY
+// }
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
