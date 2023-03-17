@@ -1,6 +1,8 @@
+const {stripePublishableKey} = require("../config/apiKeys");
+
       // This is your test publishable API key.
-// import stripePublishableKey from 'apiKeys.js'
-const stripe = Stripe('pk_test_51L9yuoJnjUu1jL0icE5yoCHGXNu2VXYw0JhGiiG28ZgNGTYqnrHYEQ4joDFnM59Pw15b1w49HEAoBuPWa8sC3xkx00LWgSjLDX');
+
+const stripe = Stripe(stripePublishableKey);
 const totalPrice = document.querySelector('#totalPrice').innerText
 
 const total = parseFloat(totalPrice) * 100;

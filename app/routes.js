@@ -1,4 +1,4 @@
-// const { keys } = require('lodash');
+const { keys } = require('lodash');
 const { session } = require('passport');
 
 module.exports = function(app, passport, db, stripe) {
@@ -54,7 +54,7 @@ module.exports = function(app, passport, db, stripe) {
           user: req.user,
           bobaDB: result,
           bobaDBaddress: address,
-          stripePublishableKey: process.env.STRIPE_PUBLIC_KEY,
+          stripePublishableKey: keys.stripePublishableKey,
           sumTotal
         })
         })
