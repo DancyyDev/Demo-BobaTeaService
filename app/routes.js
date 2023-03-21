@@ -1,7 +1,7 @@
 const { keys } = require('lodash');
 const { session } = require('passport');
 
-module.exports = function(app, passport, db, stripe) {
+module.exports = function(app, passport, db, stripe, keys) {
   const {ObjectId} = require('mongodb')
   
   require('dotenv').config()
