@@ -3,7 +3,6 @@
 
   // module.exports = require('./keys_prod')
 
-console.log(stripePublishableKey)
       // This is your test publishable API key.
 // const Stripe = require('../stripe');
 // const stripe = Stripe({stripePublishableKey});
