@@ -2,7 +2,9 @@
 
 // set up ======================================================================
 // get all the tools we need
-require("dotenv").config({path:'/etc/secrets/<filename>.'})
+// require("dotenv").config({path:'./config/.env'})
+require("dotenv").config()
+console.log(process.env.STRIPE_PUBLIC_KEY)
 
 const express  = require('express');
 const app      = express();
