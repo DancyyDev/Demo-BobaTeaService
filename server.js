@@ -14,7 +14,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const flash    = require('connect-flash');
 
-const keys = require('./config/apiKeys')
+const keys = require('./config/keys_prod.js')
 // const Stripe = require('stripe');
 const stripe = require('stripe')(keys.stripeSecretKey);
 
