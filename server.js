@@ -4,6 +4,7 @@
 // get all the tools we need
 // require("dotenv").config({path:'./config/.env'})
 require("dotenv").config()
+console.log(process.env.NODE_ENV)
 
 const express  = require('express');
 const app      = express();
