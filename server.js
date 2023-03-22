@@ -4,7 +4,6 @@
 // get all the tools we need
 // require("dotenv").config({path:'./config/.env'})
 require("dotenv").config()
-console.log(process.env)
 
 const express  = require('express');
 const app      = express();
@@ -14,14 +13,10 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const flash    = require('connect-flash');
 
-const keys = require('./config/keys_prod.js')
-// const Stripe = require('stripe');
-const stripe = require('stripe')(keys.stripeSecretKey);
 
-// const stripe = {
-//   stripePublishableKey: process.env.STRIPE_PUBLIC_KEY,
-//   stripeSecretKey: process.env.STRIPE_SECRET_KEY
-// }
+
+const keys = require('./config/apiKeys')
+const stripe = require('stripe')(keys.stripeSecretKey);
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
