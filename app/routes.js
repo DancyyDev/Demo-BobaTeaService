@@ -54,7 +54,7 @@ module.exports = function(app, passport, db, stripe, keys) {
           user: req.user,
           bobaDB: result,
           bobaDBaddress: address,
-          stripePublishableKey: keys.stripePublishableKey,
+          stripeSecretKey: keys.stripeSecretKey,
           sumTotal
         })
         })
