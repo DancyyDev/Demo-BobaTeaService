@@ -6,7 +6,7 @@
       // This is your test publishable API key.
 // const Stripe = require('../stripe');
 // const stripe = Stripe({stripePublishableKey});
-const stripe = Stripe(keys.stripePublishableKey);
+const stripe = Stripe(stripePublishableKey);
 
 const totalPrice = document.querySelector('#totalPrice').innerText
 
