@@ -50,7 +50,7 @@ async function handleSubmit(e) {
     elements,
     confirmParams: {
       // Make sure to change this to your payment completion page
-      return_url: "http://localhost:8080/purchaseComplete",
+      return_url: "http://bobotea.onrender.com/purchaseComplete",
     },
   });
 
