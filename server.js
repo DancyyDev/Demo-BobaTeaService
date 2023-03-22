@@ -2,9 +2,9 @@
 
 // set up ======================================================================
 // get all the tools we need
-require("dotenv").config({path:'./config/.env'})
-// require("dotenv").config()
-console.log(process.env.PORT)
+// require("dotenv").config({path:'./config/.env'})
+require("dotenv").config()
+console.log(process.env)
 
 const express  = require('express');
 const app      = express();
